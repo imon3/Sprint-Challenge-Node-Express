@@ -10,7 +10,6 @@ const router = express.Router();
 router.get('/actions', async (req, res) => {
     try {
         const actions = await Actions.get();
-        console.log(actions)
         res.status(200).json(actions)
     } catch {
         res.status(500).json({
@@ -62,10 +61,10 @@ router.put('/actions/:id', async (req, res) => {
 })
 
 // DELETE REQUEST
-router.delete('./actions/:id', async (req, res) => {
+router.delete('/actions/:id', async (req, res) => {
     try {
         const deleteAction = await Actions.remove(req.params.id);
-        if (deleteAction > 0) {
+        if (deleteAction) {
             res.status(200).json({
                 message: 'The action was deleted.'
             })
