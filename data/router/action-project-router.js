@@ -33,7 +33,8 @@ router.get('/actions/:id', async (req, res) => {
 // CREATE REQUEST
 router.post('/actions', async (req, res) => {
     try {
-        const postAction = await Actions.insert(req.body)
+        const postAction = await Actions.insert(req.body);
+        console.log(postAction)
         res.status(201).json(postAction)
     } catch {
         res.status(500).json({
@@ -100,6 +101,23 @@ router.get('/projects/:id', async (req, res) => {
     } catch {
         res.status(500).json({
             error: 'There was a problem retrieving the data.'
+        })
+    }
+})
+
+router.get('/actions/:id/projects', async (req, res) => {
+    try {
+        const projects = await Projects.getProjectActions(req.params.id);
+        if (projects > 0) {
+            res.status(200).json(projects)
+        } else {
+            res.status(404).json({
+                message: 'The action could not be found.'
+            })
+        }
+    } catch {
+        res.status(500).json({
+            error: 'There was a problem retrieving project.'
         })
     }
 })
