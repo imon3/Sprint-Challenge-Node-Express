@@ -107,7 +107,8 @@ router.get('/projects/:id', async (req, res) => {
 router.get('/actions/:id/projects', async (req, res) => {
     try {
         const projects = await Projects.getProjectActions(req.params.id);
-        if (projects > 0) {
+        console.log(projects)
+        if (projects.length > 0) {
             res.status(200).json(projects)
         } else {
             res.status(404).json({
